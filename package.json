@@ -1,0 +1,23 @@
+{
+  "name": "youtube",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaharsprontz/youtube-angula2.git"
+  },
+  "author": "Shahar Sprontz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shaharsprontz/youtube-angula2/issues"
+  },
+  "homepage": "https://github.com/shaharsprontz/youtube-angula2#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "mongoose": "^4.10.0"
+  }
+}
