@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const userSchema = mongoose.Schema;
+mongoose.Promise = global.Promise;
+const Schema = mongoose.Schema;
 
-var blogSchema = new Schema({
+const userSchema = new Schema({
 email: { type: String, required: true, unique: true, lowercase: true },
 username: { type: String, required: true, unique: true, lowercase: true },
 password: { type: String, required: true }
