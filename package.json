@@ -19,6 +19,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "express": "^4.15.4",
-    "mongoose": "^4.10.0"
+    "mongoose": "^4.10.0",
+    "mongoose-type-email": "^1.0.5"
   }
 }
