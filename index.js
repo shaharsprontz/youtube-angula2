@@ -7,6 +7,9 @@ const path = require('path');
 const authentication = require('/Users/user/Documents/angular2/youtube-playlist/client/routes/authentication.js')(router);
 const bodyParser = require('body-parser');
 
+const cors = require('cors');
+
+
 mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err) => {
     if (err) {
@@ -16,6 +19,12 @@ mongoose.connect(config.uri, (err) => {
         console.log('Connected to database: ' + config.db);
     }
 });
+// Middleware
+//Cross origin
+app.use(cors({
+    origin: 'http://localhost:4200'
+}))
+
 app.use(bodyParser.urlencoded({ extended: false}))
 app.use(bodyParser.json())
 

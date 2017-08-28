@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -9,6 +10,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
+
+  constructor(
+    private FormBuilder: FormBuilder,
+    private AuthService: AuthService
+  ) {
+    this.createForm()
+   }
 
   createForm(){
     this.form = this.FormBuilder.group({
@@ -72,15 +80,21 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-onRegisterSubmit() {
-  console.log('form submitted');
-}
 
-  constructor(
-    private FormBuilder: FormBuilder
-  ) {
-    this.createForm()
-   }
+
+onRegisterSubmit() {
+
+  const user = {
+    email: this.form.get('email').value,
+    username: this.form.get('username').value,
+    password: this.form.get('password').value,
+  }
+
+  this.AuthService.registerUser(user).subscribe(data => {
+    console.log(data);
+  })
+
+}
 
   ngOnInit() {
   }
