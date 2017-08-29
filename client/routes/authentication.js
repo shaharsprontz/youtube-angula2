@@ -62,5 +62,40 @@ module.exports = (router) => {
     }
   });
 
+  router.get('/checkEmail/:email', (req, res) => {
+    if (!req.params.email) {
+      res.json({ success: false, message: 'E-mail was not provided' });
+    } else {
+      User.findOne({ email: req.params.email }, (err, user) => {
+        if (err) {
+          res.json ({ success: false, message: err });
+        } else {
+          if (user) {
+            res.json({ success: false, message: 'E-mail is already taken' });
+          } else {
+            res.json({ success: true })
+          }
+        }
+      })
+    }
+  })
+  router.get('/checkUsername/:username', (req, res) => {
+    if (!req.params.username) {
+      res.json({ success: false, message: 'username was not provided' });
+    } else {
+      User.findOne({ username: req.params.username }, (err, user) => {
+        if (err) {
+          res.json ({ success: false, message: err });
+        } else {
+          if (user) {
+            res.json({ success: false, message: 'username is already taken' });
+          } else {
+            res.json({ success: true })
+          }
+        }
+      })
+    }
+  })
+
   return router; // Return router object to main index.js
 }
