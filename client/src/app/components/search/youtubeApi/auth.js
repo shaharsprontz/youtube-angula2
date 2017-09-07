@@ -51,8 +51,13 @@ var OAUTH2_SCOPES = [
 // Load the client interfaces for the YouTube Analytics and Data APIs, which
 // are required to use the Google APIs JS client. More info is available at
 // https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
+<<<<<<< HEAD
  function loadAPIClientInterfaces() {
   gapi.client.setApiKey("AIzaSyDOC-onvBgQkv4NUoelJ9r9CEHDBUGmwng");
+=======
+function loadAPIClientInterfaces() {
+  // gapi.client.setApiKey("AIzaSyDOC-onvBgQkv4NUoelJ9r9CEHDBUGmwng");
+>>>>>>> d41e780617304001e56949dd63c41f7571393b96
   gapi.client.load('youtube', 'v3', function() {
     handleAPILoaded();
   });
