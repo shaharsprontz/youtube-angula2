@@ -52,7 +52,7 @@ function handleAuthResult(authResult) {
 // are required to use the Google APIs JS client. More info is available at
 // https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
 function loadAPIClientInterfaces() {
-  gapi.client.setApiKey("AIzaSyDOC-onvBgQkv4NUoelJ9r9CEHDBUGmwng");
+  // gapi.client.setApiKey("AIzaSyDOC-onvBgQkv4NUoelJ9r9CEHDBUGmwng");
   gapi.client.load('youtube', 'v3', function() {
     handleAPILoaded();
   });
