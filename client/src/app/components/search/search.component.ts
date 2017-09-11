@@ -3,7 +3,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 declare var gapi: any;
 declare var jQuery: JQueryStatic;
 
-const OAUTH2_CLIENT_ID = 'AIzaSyDOC-onvBgQkv4NUoelJ9r9CEHDBUGmwng';
+const OAUTH2_CLIENT_ID = '760102447470-m5qua4nr903r5qo31nelrrh45phgftql.apps.googleusercontent.com';
 const OAUTH2_SCOPES = [
 	'https://www.googleapis.com/auth/youtube'
 ];
@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
 	}
 	// After the API loads, call a function to enable the search box.
 	handleAPILoaded() {
-		jQuery('#search-button').attr('disabled', "false");
+		jQuery('#search-button').attr('');
 	}
 
 	// Search for a specified string.
@@ -37,7 +37,7 @@ export class SearchComponent implements OnInit {
 		var q = jQuery('#query').val();
 		var request = gapi.client.youtube.search.list({
 			q: q,
-			part: 'snippet'
+			part: 'player'
 		});
 
 		request.execute(function (response) {
@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit {
 		gapi.auth.authorize({
 			client_id: OAUTH2_CLIENT_ID,
 			scope: OAUTH2_SCOPES,
-			immediate: true
+			immediate: false
 		}, this.handleAuthResult.bind(this));
 	}
 
