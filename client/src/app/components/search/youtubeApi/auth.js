@@ -8,7 +8,7 @@ var OAUTH2_SCOPES = [
 ];
 
 // Upon loading, the Google APIs JS client automatically invokes this callback.
-googleApiClientReady = function() {
+ function googleApiClientReady ()  {
   gapi.auth.init(function() {
     window.setTimeout(checkAuth, 1);
   });
@@ -19,7 +19,7 @@ googleApiClientReady = function() {
 // the client specified as the OAUTH2_CLIENT_ID, then the authorization
 // succeeds with no user intervention. Otherwise, it fails and the
 // user interface that prompts for authorization needs to display.
-function checkAuth() {
+ function checkAuth() {
   gapi.auth.authorize({
     client_id: OAUTH2_CLIENT_ID,
     scope: OAUTH2_SCOPES,
@@ -28,7 +28,7 @@ function checkAuth() {
 }
 
 // Handle the result of a gapi.auth.authorize() call.
-function handleAuthResult(authResult) {
+ function handleAuthResult(authResult) {
   if (authResult && !authResult.error) {
     // Authorization was successful. Hide authorization prompts and show
     // content that should be visible after authorization succeeds.
@@ -51,8 +51,13 @@ function handleAuthResult(authResult) {
 // Load the client interfaces for the YouTube Analytics and Data APIs, which
 // are required to use the Google APIs JS client. More info is available at
 // https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
+<<<<<<< HEAD
+ function loadAPIClientInterfaces() {
+  gapi.client.setApiKey("AIzaSyDOC-onvBgQkv4NUoelJ9r9CEHDBUGmwng");
+=======
 function loadAPIClientInterfaces() {
   // gapi.client.setApiKey("AIzaSyDOC-onvBgQkv4NUoelJ9r9CEHDBUGmwng");
+>>>>>>> d41e780617304001e56949dd63c41f7571393b96
   gapi.client.load('youtube', 'v3', function() {
     handleAPILoaded();
   });
