@@ -1,3 +1,7 @@
+input {
+	width: 300px;
+}
+
 
 #search-button{
 	background: #3498db;
@@ -11,10 +15,12 @@
 	border-radius: 28px;
 	font-family: Arial;
 	color: #ffffff;
-	font-size: 20px;
-	padding: 10px 20px 10px 20px;
+	font-size: 18px;
+	padding: 2px 20px 10px 20px;
 	text-decoration: none;
-	margin-left: 15px
+	margin-top: 15px;
+	width: 150px;
+	height: 30px
 }
 
 #search-button:hover {
@@ -27,7 +33,12 @@
 	text-decoration: none;
 }
 
+#buttons {
+	text-align: center;
+	margin-top: 30px;
+}
+
 #search-container {
 	margin-top: 10px;
-	text-align: center
+	text-align: center;
 }

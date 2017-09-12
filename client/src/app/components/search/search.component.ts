@@ -46,8 +46,8 @@ export class SearchComponent implements OnInit {
 				resultsArr.push(results.items[i].id.videoId)
 			}
 			for (var i = 0; i < resultsArr.length; i++){
-				jQuery('#search-container').append('<iframe width="550" height="280" margin="5px" src="https://www.youtube.com/embed/'+resultsArr[i]+'" frameborder="5" allowfullscreen></iframe>');
-			}
+				jQuery('#search-container').append('<iframe width="550" height="280" margin="5px" border="4px solid green" src="https://www.youtube.com/embed/'+resultsArr[i]+'" frameborder="5" allowfullscreen></iframe>')
+      }
 		});
 		jQuery('#search-button').click(function(){
 			jQuery('#search-container').empty()
