@@ -37,13 +37,21 @@ export class SearchComponent implements OnInit {
 		var q = jQuery('#query').val();
 		var request = gapi.client.youtube.search.list({
 			q: q,
-			part: 'player'
+			part: 'snippet'
 		});
-
+		var resultsArr = [];
 		request.execute(function (response) {
-			var str = JSON.stringify(response.result);
-			jQuery('#search-container').html('<pre>' + str + '</pre>');
+			var results = response.result
+			for (var i = 0; i < results.items.length; i++) {
+				resultsArr.push(results.items[i].id.videoId)
+			}
+			for (var i = 0; i < resultsArr.length; i++){
+				jQuery('#search-container').append('<iframe width="550" height="280" src="https://www.youtube.com/embed/'+resultsArr[i]+'" frameborder="0" allowfullscreen></iframe>');
+			}
 		});
+		jQuery('#search-button').click(function(){
+			jQuery('#search-container').empty()
+		})
 	}
 
 	// The client ID is obtained from the {{ Google Cloud Console }}
@@ -86,7 +94,7 @@ export class SearchComponent implements OnInit {
 				gapi.auth.authorize({
 					client_id: OAUTH2_CLIENT_ID,
 					scope: OAUTH2_SCOPES,
-					immediate: false
+					immediate: true
 				}, this.handleAuthResult.bind(this));
 			});
 		}
