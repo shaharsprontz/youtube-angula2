@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit {
 				resultsArr.push(results.items[i].id.videoId)
 			}
 			for (var i = 0; i < resultsArr.length; i++){
-				jQuery('#search-container').append('<iframe width="550" height="280" src="https://www.youtube.com/embed/'+resultsArr[i]+'" frameborder="0" allowfullscreen></iframe>');
+				jQuery('#search-container').append('<iframe width="550" height="280" margin="5px" src="https://www.youtube.com/embed/'+resultsArr[i]+'" frameborder="5" allowfullscreen></iframe>');
 			}
 		});
 		jQuery('#search-button').click(function(){
@@ -75,7 +75,7 @@ export class SearchComponent implements OnInit {
 		gapi.auth.authorize({
 			client_id: OAUTH2_CLIENT_ID,
 			scope: OAUTH2_SCOPES,
-			immediate: false
+			immediate: true
 		}, this.handleAuthResult.bind(this));
 	}
 
@@ -94,7 +94,7 @@ export class SearchComponent implements OnInit {
 				gapi.auth.authorize({
 					client_id: OAUTH2_CLIENT_ID,
 					scope: OAUTH2_SCOPES,
-					immediate: true
+					immediate: false
 				}, this.handleAuthResult.bind(this));
 			});
 		}
