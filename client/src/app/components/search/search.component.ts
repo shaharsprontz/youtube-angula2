@@ -34,6 +34,7 @@ export class SearchComponent implements OnInit {
 
 	// Search for a specified string.
 	private search() {
+		var selectedVid;
 		var q = jQuery('#query').val();
 		var request = gapi.client.youtube.search.list({
 			q: q,
@@ -47,17 +48,20 @@ export class SearchComponent implements OnInit {
 			}
 			for (var i = 0; i < resultsArr.length; i++){
 				jQuery('#search-container').append('<iframe width="550" height="280" margin="5px" border="4px solid green" src="https://www.youtube.com/embed/'+resultsArr[i]+'" frameborder="5" allowfullscreen></iframe>')
-      }
+				.append('<button class="addToPlaylist">Add to Playlist</button>')
+				jQuery('.addToPlaylist').css({"margin":"0 auto", "margin-bottom": "15px", "display": "block"})
+				
+			}
+			jQuery('.addToPlaylist').click(function(event){
+				selectedVid = $(event.target).prev('iframe')
+				console.log(selectedVid)
+			})
 		});
 		jQuery('#search-button').click(function(){
 			jQuery('#search-container').empty()
 		})
 	}
-
-	// The client ID is obtained from the {{ Google Cloud Console }}
-	// at {{ https://cloud.google.com/console }}.
-	// If you run this code from a server other than http://localhost,
-	// you need to register your own client ID.
+	
 
 	// Upon loading, the Google APIs JS client automatically invokes this callback.
 	private googleApiClientReady = function () {
@@ -104,7 +108,6 @@ export class SearchComponent implements OnInit {
 	// are required to use the Google APIs JS client. More info is available at
 	// https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
 	private loadAPIClientInterfaces() {
-		// gapi.client.setApiKey("AIzaSyDOC-onvBgQkv4NUoelJ9r9CEHDBUGmwng");
 		gapi.client.load('youtube', 'v3', () => {
 			this.handleAPILoaded();
 		});
