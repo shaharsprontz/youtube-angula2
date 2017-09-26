@@ -8,8 +8,8 @@ import { SearchComponent } from '../search/search.component';
 })
 export class DashboardComponent implements OnInit {
 
-  @Input()
-  selectedVid;
+  // @Input()
+  // selectedVid;
   
   constructor() { }
 

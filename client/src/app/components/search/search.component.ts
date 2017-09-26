@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 
+
 declare var gapi: any;
 declare var jQuery: JQueryStatic;
 
@@ -50,18 +51,22 @@ export class SearchComponent implements OnInit {
 				jQuery('#search-container').append('<iframe width="550" height="280" margin="5px" border="4px solid green" src="https://www.youtube.com/embed/'+resultsArr[i]+'" frameborder="5" allowfullscreen></iframe>')
 				.append('<button class="addToPlaylist">Add to Playlist</button>')
 				jQuery('.addToPlaylist').css({"margin":"0 auto", "margin-bottom": "15px", "display": "block"})
-				
+
 			}
 			jQuery('.addToPlaylist').click(function(event){
 				selectedVid = $(event.target).prev('iframe')
-				console.log(selectedVid)
+				let video = selectedVid[0].src
+				const user = {
+					videoArray: video
+				}
+				// console.log(selectedVid[0].src)
 			})
 		});
 		jQuery('#search-button').click(function(){
 			jQuery('#search-container').empty()
 		})
 	}
-	
+
 
 	// Upon loading, the Google APIs JS client automatically invokes this callback.
 	private googleApiClientReady = function () {
