@@ -4,7 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const config = require('./config/database')
 const path = require('path');
-const authentication = require('../../../client/routes/authentication.js')(router);
+const authentication = require('../youtube-playlist/client/routes/authentication.js')(router);
 const bodyParser = require('body-parser');
 
 const cors = require('cors');
@@ -23,6 +23,7 @@ mongoose.connect(config.uri, (err) => {
 //Cross origin
 app.use(cors({
     origin: 'http://localhost:4200'
+ 
 }))
 
 app.use(bodyParser.urlencoded({ extended: false}))
@@ -30,6 +31,9 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
+app.use("/video", function(req, res, next) {
+    console.log("video request", req.body);
+});
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/dist/index.html'));

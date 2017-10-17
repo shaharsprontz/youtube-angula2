@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 
-
 declare var gapi: any;
 declare var jQuery: JQueryStatic;
 
@@ -56,10 +55,13 @@ export class SearchComponent implements OnInit {
 			jQuery('.addToPlaylist').click(function(event){
 				selectedVid = $(event.target).prev('iframe')
 				let video = selectedVid[0].src
-				const user = {
-					videoArray: video
-				}
-				// console.log(selectedVid[0].src)
+				console.log(selectedVid[0].src);
+				jQuery.post({
+					url: 'http://localhost:8080/video',
+					method: "PUT",
+					type: "json",
+					data: video
+				})
 			})
 		});
 		jQuery('#search-button').click(function(){
