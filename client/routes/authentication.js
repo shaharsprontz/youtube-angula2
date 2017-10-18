@@ -127,5 +127,8 @@ module.exports = (router) => {
     }
   })
 
+  router.get('/dashboard', (req, res) => {
+    res.send('test')
+  })
   return router; // Return router object to main index.js
 }

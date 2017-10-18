@@ -35,4 +35,8 @@ storeUserDate(token, user) {
   this.authToken = token;
   this.user = user;
 }
+
+getProfile() {
+  
+}
 }
