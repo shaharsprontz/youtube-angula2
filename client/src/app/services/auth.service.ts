@@ -53,12 +53,13 @@ export class AuthService {
 
   storeUserDate(token, user) {
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user))
+    localStorage.setItem('user', JSON.stringify(user));
     this.authToken = token;
     this.user = user;
   }
 
   getProfile() {
-    this.createAutenticationHeaders()
+    this.createAutenticationHeaders();
+    return this.http.get(this.domain + '/authentication/dashboard', this.options).map(res => res.json());
   }
 }
