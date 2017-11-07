@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent} from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { SearchComponent } from './components/search/search.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const appRoutes: Routes = [
     { path: '',
