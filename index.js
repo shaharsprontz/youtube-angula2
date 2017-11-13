@@ -4,7 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const config = require('./config/database')
 const path = require('path');
-const authentication = require('../youtube-playlist/client/routes/authentication.js')(router);
+const authentication = require('../youtube-angular2/client/routes/authentication.js')(router);
 const bodyParser = require('body-parser');
 
 const cors = require('cors');
