@@ -56,7 +56,7 @@ module.exports = (router) => {
                 }
               }
             } else {
-              res.json({ success: true, message: 'Acount registered!' }); // Return success
+              res.json({ success: true, message: 'Account registered!' }); // Return success
             }
           });
         }
