@@ -57,11 +57,11 @@ export class SearchComponent implements OnInit {
 				let video = selectedVid[0].src
 				console.log(selectedVid[0].src);
 				jQuery.post({
-					url: 'http://localhost:8080/video',
-					method: "PUT",
-					type: "json",
-					data: video
-				})
+					url: 'http://localhost:8080/video/',
+					method: "POST",
+					data: video,
+					// contentType: "application/json"
+				})				
 			})
 		});
 		jQuery('#search-button').click(function(){

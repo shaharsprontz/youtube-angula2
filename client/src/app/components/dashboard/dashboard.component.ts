@@ -10,16 +10,19 @@ import { AuthService } from '../../services/auth.service';
 export class DashboardComponent implements OnInit {
 
 username;
-email;  
+email;
+video;  
+
   constructor(
     private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.authService.getProfile().subscribe(profile => {
-      this.username = profile.user.username;
-      this.email = profile.user.email;
-    })
+    // this.authService.getProfile().subscribe(profile => {
+    //   this.username = profile.user.username;
+    //   this.email = profile.user.email;
+    //   // this.video = profile.user.videoArray
+    // })
   }
 
   

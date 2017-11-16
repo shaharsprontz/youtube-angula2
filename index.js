@@ -4,10 +4,11 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const config = require('./config/database')
 const path = require('path');
-const authentication = require('../youtube-angular2/client/routes/authentication.js')(router);
+const authentication = require('../youtube-playlist/client/routes/authentication.js')(router);
 const bodyParser = require('body-parser');
 
 const cors = require('cors');
+// const userModel = require("./client/models/user");
 
 
 mongoose.Promise = global.Promise;
@@ -31,8 +32,18 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
-app.use("/video", function(req, res, next) {
-    console.log("video request", req.body);
+app.use('/video', function(req, res, next) {
+    console.log(req.body)
+    // var videoUrl = req.body,
+    //     m = userModel;
+    //     app.get('/authentication/dashboard', function(req, res){
+    //         console.log(req.body._id)
+    //     })
+    // // once you have a user id
+    // userModel.findOneAndUpdate({ _id: userId }, { videoArray: { $addToSet: { videoUrl}}}, { new: true }, function(err, user) {
+    //     return res.status(200).json({ success: true });
+    // });
+    // console.log(req.body)
 });
 
 app.get('*', (req, res) => {
