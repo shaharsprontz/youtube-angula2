@@ -11,18 +11,18 @@ export class DashboardComponent implements OnInit {
 
 username;
 email;
-video;  
+videoArray;
 
   constructor(
     private authService: AuthService
   ) { }
 
   ngOnInit() {
-    // this.authService.getProfile().subscribe(profile => {
-    //   this.username = profile.user.username;
-    //   this.email = profile.user.email;
-    //   // this.video = profile.user.videoArray
-    // })
+    this.authService.getProfile().subscribe(profile => {
+      this.username = profile.user.username;
+      this.email = profile.user.email;
+      this.videoArray = profile.user.videoArray
+    })
   }
 
   
