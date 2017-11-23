@@ -8,7 +8,7 @@ const authentication = require('../youtube-playlist/client/routes/authentication
 const bodyParser = require('body-parser');
 
 const cors = require('cors');
-// const userModel = require("./client/models/user");
+const userModel = require("./client/models/user");
 
 
 mongoose.Promise = global.Promise;
@@ -34,6 +34,7 @@ app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
 app.use('/video', function(req, res, next) {
     console.log(req.body)
+    // app.use('/authentication', authentication)
     // var videoUrl = req.body,
     //     m = userModel;
     //     app.get('/authentication/dashboard', function(req, res){

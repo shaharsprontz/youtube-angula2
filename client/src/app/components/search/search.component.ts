@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 declare var gapi: any;
 declare var jQuery: JQueryStatic;
@@ -15,9 +16,13 @@ const OAUTH2_SCOPES = [
 })
 export class SearchComponent implements OnInit {
 
-	private _apiInterval: any;
+	username;
+	email;
+	videoArray;
 
-	constructor(private root: ElementRef) { }
+	private _apiInterval: any;
+	
+	constructor(private root: ElementRef, private authService: AuthService) { }
 
 	ngOnInit() {
 		this._apiInterval = setInterval(() => {
@@ -26,6 +31,9 @@ export class SearchComponent implements OnInit {
 				this.googleApiClientReady();
 			}
 		}, 100);
+		this.authService.getProfile().subscribe(profile => {
+			this.username = profile.user.username;
+		  })
 	}
 	// After the API loads, call a function to enable the search box.
 	handleAPILoaded() {
