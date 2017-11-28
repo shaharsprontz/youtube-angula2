@@ -33,7 +33,7 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
 app.use('/video', function(req, res, next) {
-    console.log(req.body)
+    console.log(req.body)    
     // app.use('/authentication', authentication)
     // var videoUrl = req.body,
     //     m = userModel;
