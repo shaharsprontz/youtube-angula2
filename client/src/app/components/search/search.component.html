@@ -2,13 +2,11 @@
 <div id="buttons">    
   <label> <input id="query" value="" type="text" placeholder="Search for videos"/><br>
     <li class="list-group-item">Username: {{ username }}</li>
+    <li class="list-group-item">ID: {{ id }}</li>
     
-    <button id="search-button" (click)="search()">Search</button></label>
+    <button id="search-button" (click)="find()">Search</button>
+    <button id="id-button" (click)="showId()">show id</button></label>
 </div>
-
-<button (click)="onLoginSubmit()">  
-<input class="btn btn-primary" type="submit" value="Login" />
-</button>
 
 <div id="search-container">
 </div>

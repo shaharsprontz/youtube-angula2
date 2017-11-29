@@ -156,26 +156,19 @@ module.exports = (router) => {
       }
     })
   })
-
-  router.post('/search', (req, res) => {
-    User.findOne({ username: req.body.username.toLowerCase() }, (err, user) => {
+  router.get('/search', (req, res) => {
+    User.findOne({ _id: req.decoded.userId }).select('username email videoArray').exec((err, user) => {
       if (err) {
-        res.json({ success: false, message: err });
+        res.json({ success: false, message: err});
       } else {
         if (!user) {
-          res.json({ success: false, message: 'Username not found'});
+          res.json({ success: false, message: 'User not found'});
         } else {
-          const validPassword = user.comparePassword(req.body.password);
-          if (!validPassword) {
-            res.json({ success: false, message: 'Password invalid' })
-          } else {
-            const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' });
-            res.json({ success: true, message: 'Success!', token: token, user: { username: user.username } });
-          }
+          res.json({ success: true, user: user });
         }
       }
     })
-  });
+  })
 
   router.get('/video', (req, res) => {
     User.findOne({ _id: req.decoded.userId }).select('username email videoArray').exec((err, user) => {

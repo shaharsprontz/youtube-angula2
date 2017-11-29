@@ -25,38 +25,12 @@ export class SearchComponent implements OnInit {
 	email;
 	videoArray;
 	previousurl;
+	id;
 
 	private _apiInterval: any;
 	
 	constructor(private root: ElementRef, private authService: AuthService, private router: Router,
 	) { }
-
-
-		
-		// // this.processing = true,
-		// const user = {
-		// //   username: this.form.get('username').value,
-		// //   password: this.form.get('password').value
-		// }
-		// this.authService.login(user).subscribe(data => {
-		// 	if (!data.success) {
-		// 	  this.messageClass = 'alert alert-danger';
-		// 	  this.message = data.message;
-		// 	//   this.processing = false;
-		// 	//   this.enableForm();
-		// 	} else {
-		// 	  this.messageClass = 'alert alert-success';
-		// 	  this.message = data.message;
-		// 	  this.authService.storeUserDate(data.token, data.user);
-		// 	  setTimeout(() => {
-		// 		if (this.previousurl){
-		// 		  this.router.navigate([this.previousurl]);
-		// 		}else {
-		// 		  this.router.navigate(['/dashboard']);
-		// 		}
-		// 	  }, 2000);
-		// 	}
-		//   })
 	
 
 	ngOnInit() {
@@ -68,16 +42,22 @@ export class SearchComponent implements OnInit {
 		}, 100);
 		this.authService.getProfile().subscribe(profile => {
 			this.username = profile.user.username;
-			console.log(this.username)
+			this.id = profile.user._id
+			// console.log(this.id)
 		  })
 	}
 	// After the API loads, call a function to enable the search box.
 	handleAPILoaded() {
 		jQuery('#search-button').attr('');
+		jQuery('#id-button').attr('');
 	}
 
+	showId(){
+		alert(this.id)
+	}
 	// Search for a specified string.
-	private search() {
+	find() {
+		// console.log(this.username)
 		var selectedVid;
 		var q = jQuery('#query').val();
 		var request = gapi.client.youtube.search.list({
@@ -93,9 +73,10 @@ export class SearchComponent implements OnInit {
 			for (var i = 0; i < resultsArr.length; i++){
 				jQuery('#search-container').append('<iframe width="550" height="280" margin="5px" border="4px solid green" src="https://www.youtube.com/embed/'+resultsArr[i]+'" frameborder="5" allowfullscreen></iframe>')
 				.append('<button class="addToPlaylist">Add to Playlist</button>')
-				jQuery('.addToPlaylist').css({"margin":"0 auto", "margin-bottom": "15px", "display": "block"})
+				jQuery('.addToPlaylist').css({"margin":"0 auto", "margin-bottom": "15px", "display": "block"}).attr('function', 'showId()')
 
 			}
+			
 			jQuery('.addToPlaylist').click(function(event){
 				selectedVid = $(event.target).prev('iframe')
 				let video = selectedVid[0].src
