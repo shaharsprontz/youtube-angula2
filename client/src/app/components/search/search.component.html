@@ -1,12 +1,17 @@
 <h2 class="page-header">Search for videos</h2>
 <div id="buttons">    
   <label> <input id="query" value="" type="text" placeholder="Search for videos"/><br>
-    <li class="list-group-item">Username: {{ username }}</li>
-    <li class="list-group-item">ID: {{ id }}</li>
+    <!-- <li class="list-group-item">Username: {{ username }}</li> -->
+    <li class="list-group-item">ID: {{ id }}</li> 
     
-    <button id="search-button" (click)="find()">Search</button>
-    <button id="id-button" (click)="showId()">show id</button></label>
+   <button id="search-button" (click)="find()" disabled="disabled">Search</button><br></label>
+    <ul>
+        <li id="videoId">
+         
+        </li>
+      </ul>
 </div>
 
 <div id="search-container">
-</div>
+</div>  
+
