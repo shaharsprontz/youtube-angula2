@@ -1,17 +1,22 @@
 <h2 class="page-header">Search for videos</h2>
-<div id="buttons">    
-  <label> <input id="query" value="" type="text" placeholder="Search for videos"/><br>
+<div id="buttons">
+  <label>
+    <input id="query" value="" type="text" placeholder="Search for videos" />
+    <br>
     <!-- <li class="list-group-item">Username: {{ username }}</li> -->
-    <li class="list-group-item">ID: {{ id }}</li> 
-    
-   <button id="search-button" (click)="find()" disabled="disabled">Search</button><br></label>
-    <ul>
-        <li id="videoId">
-         
+    <li class="list-group-item">ID: {{ id }}</li>
+
+    <button id="search-button" (click)="find()" disabled="disabled">Search</button>
+    <br>
+  </label>
+  <div id="search-container">
+      
+        <li *ngFor='let video of videos'>
+          {{ video }}
         </li>
-      </ul>
+        <iframe *ngFor='let video of videos' width="550" height="280" margin="5px" border="4px solid green" [src]="url" frameborder="5" allowfullscreen></iframe>
+      
+    </div>
 </div>
 
-<div id="search-container">
-</div>  
 

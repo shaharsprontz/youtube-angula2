@@ -47,4 +47,6 @@ input {
 #search-container {
 	margin-top: 10px;
 	text-align: center;
+	display: inherit;
+	text-align: -webkit-center
 }

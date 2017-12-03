@@ -13,7 +13,7 @@ var OAUTH2_SCOPES = [
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 window["googleApiClientReady"] = function () {
   gapi.auth.init(function () {
-    window.setTimeout(checkAuth, 1);
+    window.setTimeout(checkAuth, 100);
   });
 }
 
@@ -21,12 +21,14 @@ window["googleApiClientReady"] = function () {
 function handleAPILoaded() {
   $('#search-button').attr('disabled', null);
 }
-var resultsArr = [];
+
 
   function search() {
+    var resultsArr = [];
     var q = $('#query').val();
     var request = gapi.client.youtube.search.list({
       q: q,
+      maxResults: 6,
       part: 'snippet'
     });
 
@@ -36,17 +38,23 @@ var resultsArr = [];
       for (var i = 0; i < results.items.length; i++) {
         resultsArr.push(results.items[i].id.videoId)
       }
-      console.log(resultsArr)
+      
       return resolve(resultsArr)
     });
   })
   
-  .then(function(result){
-    for (var i = 0; i < resultsArr.length; i++) {
-      $('#search-container').append('<iframe width="550" height="280" margin="5px" border="4px solid green" src="https://www.youtube.com/embed/' + resultsArr[i] + '" frameborder="5" allowfullscreen></iframe>')
+  // .then(function(result){
+  //   console.log(result)
+  //   // for (var i = 0; i < resultsArr.length; i++) {
+  //   //   $('#search-container').append('<iframe width="550" height="280" margin="5px" border="4px solid green" src="https://www.youtube.com/embed/' + resultsArr[i] + '" frameborder="5" allowfullscreen></iframe>')
       
-    }
-  })
+  //   // }
+
+  //   $('#search-button').click(function(){
+  //   	$('#search-container').empty()
+  // })
+  // })
+
   
 }
 
