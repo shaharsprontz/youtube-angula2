@@ -20,7 +20,7 @@
       "styles": [
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": ["/Users/user/Documents/angular2/youtube-playlist/client/src/app/components/search/youtubeApi/search.js"],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

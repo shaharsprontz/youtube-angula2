@@ -8,7 +8,7 @@ const authentication = require('../youtube-playlist/client/routes/authentication
 const bodyParser = require('body-parser');
 
 const cors = require('cors');
-// const userModel = require("./client/models/user");
+const userModel = require("./client/models/user");
 
 
 mongoose.Promise = global.Promise;
@@ -32,8 +32,16 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
-app.use('/video', function(req, res, next) {
-    console.log(req.body)
+app.use('/video', function(res,req){
+    var username = 'shahar'
+    userModel.findOne({ username }, function(err, person){
+        if (err) {
+            console.log(err)
+        }
+        console.log(person)
+    })
+})     
+    // app.use('/authentication', authentication)
     // var videoUrl = req.body,
     //     m = userModel;
     //     app.get('/authentication/dashboard', function(req, res){
@@ -44,7 +52,6 @@ app.use('/video', function(req, res, next) {
     //     return res.status(200).json({ success: true });
     // });
     // console.log(req.body)
-});
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/dist/index.html'));

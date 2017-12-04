@@ -156,5 +156,32 @@ module.exports = (router) => {
       }
     })
   })
+  router.post('/search', (req, res) => {
+    User.findOne({ _id: req.decoded.userId }).select('username email videoArray').exec((err, user) => {
+      if (err) {
+        res.json({ success: false, message: err});
+      } else {
+        if (!user) {
+          res.json({ success: false, message: 'User not found'});
+        } else {
+          res.json({ success: true, user: user });
+        }
+      }
+    })
+  })
+
+  router.get('/video', (req, res) => {
+    User.findOne({ _id: req.decoded.userId }).select('username email videoArray').exec((err, user) => {
+      if (err) {
+        res.json({ success: false, message: err});
+      } else {
+        if (!user) {
+          res.json({ success: false, message: 'User not found'});
+        } else {
+          res.json({ success: true, user: user });
+        }
+      }
+    })
+  })
   return router; // Return router object to main index.js
 }
