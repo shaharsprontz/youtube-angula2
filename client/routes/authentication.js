@@ -156,7 +156,7 @@ module.exports = (router) => {
       }
     })
   })
-  router.get('/search', (req, res) => {
+  router.post('/search', (req, res) => {
     User.findOne({ _id: req.decoded.userId }).select('username email videoArray').exec((err, user) => {
       if (err) {
         res.json({ success: false, message: err});

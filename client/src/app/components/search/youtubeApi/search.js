@@ -1,4 +1,3 @@
-
 // The client ID is obtained from the {{ Google Cloud Console }}
 // at {{ https://cloud.google.com/console }}.
 // If you run this code from a server other than http://localhost,
@@ -22,44 +21,45 @@ function handleAPILoaded() {
   $('#search-button').attr('disabled', null);
 }
 
+// Sesrch for a specific video
+function search() {
+  var resultsArr = [];
+  var q = $('#query').val();
+  var request = gapi.client.youtube.search.list({
+    q: q,
+    maxResults: 6,
+    part: 'snippet'
+  });
 
-  function search() {
-    var resultsArr = [];
-    var q = $('#query').val();
-    var request = gapi.client.youtube.search.list({
-      q: q,
-      maxResults: 6,
-      part: 'snippet'
-    });
-
-    return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
     request.execute(function (response) {
       var results = response.result
       for (var i = 0; i < results.items.length; i++) {
         resultsArr.push(results.items[i].id.videoId)
       }
-      
       return resolve(resultsArr)
     });
   })
-  
-  // .then(function(result){
-  //   console.log(result)
-  //   // for (var i = 0; i < resultsArr.length; i++) {
-  //   //   $('#search-container').append('<iframe width="550" height="280" margin="5px" border="4px solid green" src="https://www.youtube.com/embed/' + resultsArr[i] + '" frameborder="5" allowfullscreen></iframe>')
-      
-  //   // }
-
-  //   $('#search-button').click(function(){
-  //   	$('#search-container').empty()
-  // })
-  // })
-
-  
 }
 
+function showId() {
+  return new Promise(function(resolve, reject){
+  $('.addToPlaylist').click(function (event) {
+    selectedVid = $(event.target).prev('iframe')
+    let video = selectedVid[0].src
+    // $.post({
+    //   url: 'http://localhost:8080/video/',
+    //   method: "POST",
+    //   data: video,
+      // contentType: "application/json"
+    // })
+    return resolve(video)
+    
+  })
+  
+})
+}
 
-// Search for a specified string.
 
 // Attempt the immediate OAuth 2.0 client flow as soon as the page loads.
 // If the currently logged-in Google Account has previously authorized
