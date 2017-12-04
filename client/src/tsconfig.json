@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    // "allowJs": true,
     "baseUrl": "",
     "declaration": false,
     "emitDecoratorMetadata": true,
@@ -8,11 +9,14 @@
     "mapRoot": "./",
     "module": "es6",
     "moduleResolution": "node",
-    "outDir": "../dist/out-tsc",
+    "outDir": "../dist",
     "sourceMap": true,
     "target": "es5",
     "typeRoots": [
       "../node_modules/@types"
+    ],
+    "types": [
+      "jquery", ""
     ]
   }
 }

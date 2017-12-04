@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SearchComponent } from '../search/search.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+username;
+email;
+videoArray;
+
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
+    this.authService.getProfile().subscribe(profile => {
+      this.username = profile.user.username;
+      this.email = profile.user.email;
+      this.videoArray = profile.user.videoArray
+    })
   }
+
+  
 
 }
