@@ -32,15 +32,29 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
-app.use('/video', function(res,req){
-    var username = 'shahar'
-    userModel.findOne({ username }, function(err, person){
-        if (err) {
-            console.log(err)
-        }
-        console.log(person)
-    })
-})     
+// app.get('/video', function(res,req){
+    // User.findOne({ _id: req.decoded.userId }).select('username email videoArray').exec((err, user) => {
+    //     if (err) {
+    //       res.json({ success: false, message: err});
+    //     } else {
+    //       if (!user) {
+    //         res.json({ success: false, message: 'User not found'});
+    //       } else {
+    //         res.json({ success: true, user: user });
+    //       }
+    //     }
+    //   })
+    // console.log('Test')
+    // var username = 'test'
+
+    // userModel.findByIdAndUpdate({ _id: '5a257bbd522c74ee6d406e30' }, { $set: {videoArray: username }}, function(err, user) {
+    //         if (err){
+    //             console.log(err)
+    //         }
+    //         console.log(user)
+       
+    // })
+// })     
     // app.use('/authentication', authentication)
     // var videoUrl = req.body,
     //     m = userModel;

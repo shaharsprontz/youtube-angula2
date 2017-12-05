@@ -24,24 +24,7 @@ export class SearchComponent implements OnInit {
 	urls = [];
 	videoSrc;
 	
-	find(){
-		search().then((result) =>{
-			this.videos = result;
-			for (var i=0; i<this.videos.length; i++){
-				this.url = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.videos[i])
-				this.urls.push(this.url)
-			}
-			return this.urls;
-		})
-	}
-
-	idShow(){
-		showId().then(function(result){
-			console.log(result)
-			var videoSrc = result;
-			return videoSrc
-		})
-	};
+	
 	
 	private _apiInterval: any;
 	
@@ -57,10 +40,28 @@ export class SearchComponent implements OnInit {
 		this.authService.getProfile().subscribe(profile => {
 			this.username = profile.user.username;
 			this.id = profile.user._id
-			// console.log(this.id)
+			return this.id
+			// console.log(this.id, this.videoSrc)
 		  })
 		}
-		
+		find(){
+			search().then((result) =>{
+				this.videos = result;
+				for (var i=0; i<this.videos.length; i++){
+					this.url = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.videos[i])
+					this.urls.push(this.url)
+				}
+				return this.urls;
+			})
+		}
+	
+		idShow(){
+			showId().then(function(result){
+				var videoSrc = result;
+				console.log(videoSrc)
+				return videoSrc
+			})
+		};
 	}
 	
 
