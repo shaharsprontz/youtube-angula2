@@ -43,16 +43,17 @@ function search() {
 }
 
 function showId() {
+  console.log('test')
   return new Promise(function(resolve, reject){
   $('.addToPlaylist').click(function (event) {
     selectedVid = $(event.target).prev('iframe')
     let video = selectedVid[0].src
-    $.post({
-      url: 'http://localhost:8080/video/',
-      method: "POST",
-      data: video,
-      // contentType: "application/json"
-    })
+    // $.post({
+    //   url: 'http://localhost:8080/video/',
+    //   method: "POST",
+    //   data: video,
+    //   // contentType: "application/json"
+    // })
     return resolve(video)
     
   })
