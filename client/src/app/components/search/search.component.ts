@@ -3,6 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SearchService } from '../../services/search.service';
+// import { BaseCookieOptions, CookieService, CookieOptions } from '@angular/core'
 
 declare var search: any;
 declare var showId: any;
@@ -22,48 +24,49 @@ export class SearchComponent implements OnInit {
 	videos;
 	url;
 	urls = [];
-	videoSrc;
-	
-	
+	// videoSrc;
 	
 	private _apiInterval: any;
 	
-	constructor(private authService: AuthService,public sanitizer: DomSanitizer) {}
+	constructor(private authService: AuthService, private searchService: SearchService, public sanitizer: DomSanitizer) {}
 
 	ngOnInit() {
 		this._apiInterval = setInterval(() => {
 			if (typeof gapi !== "undefined" && gapi.auth && gapi.auth.init) {
 				clearInterval(this._apiInterval);
-				// googleApiClientReady();
+				this.searchService.googleApiClientReady()
 			}
 		}, 100);
 		this.authService.getProfile().subscribe(profile => {
 			this.username = profile.user.username;
 			this.id = profile.user._id
-			return this.id
-			// console.log(this.id, this.videoSrc)
+			// return this.id
+			console.log(this.id)
 		  })
 		}
-	find(){
-		search().then((result) =>{
-			this.videos = result;
-			for (var i=0; i<this.videos.length; i++){
-				this.url = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.videos[i])
-				this.urls.push(this.url)
-			}
-			return this.urls;
-		})
+		find(){
+			this.searchService.search().then((result) =>{
+				this.videos = result;
+				for (var i=0; i<this.videos.length; i++){
+					this.url = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.videos[i])
+					this.urls.push(this.url)
+				}
+				console.log(this.urls)
+				return this.urls;
+			})
+		}
 	}
+	
 
-	idShow(){
-		showId().then(function(result){
-			var videoSrc = result;
-				console.log(this.id)
-				return videoSrc;
-			});
+	// idShow(){
+	// 	showId().then((result) => {
+	// 		var videoSrc = result;
+	// 			console.log(videoSrc)
+	// 			return videoSrc;
+	// 		});
 		
-	}
-}
+	// }
+
 	
 
 			

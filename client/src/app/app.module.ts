@@ -14,6 +14,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
+import { SearchService } from 'app/services/search.service';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { NotAuthGuard } from './guards/notAuth.guard';
     AppRoutingModule,
     FlashMessagesModule
   ],
-  providers: [AuthService, AuthGuard, NotAuthGuard],
+  providers: [AuthService, AuthGuard, NotAuthGuard, SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
