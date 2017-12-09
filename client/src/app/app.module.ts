@@ -32,7 +32,7 @@ import { SearchService } from 'app/services/search.service';
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-    FlashMessagesModule
+    FlashMessagesModule,
   ],
   providers: [AuthService, AuthGuard, NotAuthGuard, SearchService],
   bootstrap: [AppComponent]

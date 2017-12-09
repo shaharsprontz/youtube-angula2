@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
-// import { BaseCookieOptions, CookieService, CookieOptions } from '@angular/core'
 
 declare var search: any;
 declare var showId: any;

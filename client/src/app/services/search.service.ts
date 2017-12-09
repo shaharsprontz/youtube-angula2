@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Component, OnInit, ElementRef } from '@angular/core';
 
+declare var gapi: any;
+
+const OAUTH2_CLIENT_ID = '760102447470-m5qua4nr903r5qo31nelrrh45phgftql.apps.googleusercontent.com';
+const	OAUTH2_SCOPES = 'https://www.googleapis.com/auth/youtube';
+
 @Injectable()
 export class SearchService {
 
-	gapi;
-	OAUTH2_CLIENT_ID = '760102447470-m5qua4nr903r5qo31nelrrh45phgftql.apps.googleusercontent.com';
-	OAUTH2_SCOPES = [
-	  'https://www.googleapis.com/auth/youtube'
-	];
+  messageClass;
+  message;
+	
 
-  constructor(private root: ElementRef) { }
+  constructor() { }
 
   // The client ID is obtained from the {{ Google Cloud Console }}
 // at {{ https://cloud.google.com/console }}.
@@ -21,36 +24,48 @@ export class SearchService {
 
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 public googleApiClientReady = () => {
-	this.gapi.auth.init(() => {
+	gapi.auth.init(() => {
 	  window.setTimeout(this.checkAuth.bind(this), 100);
 	});
   }
 
 // After the API loads, call a function to enable the search box.
-handleAPILoaded() {
-  $('#search-button').attr('disabled', null);
+private handleAPILoaded() {
+  $('#search-button').attr('disabled', null); 
 }
 
 // Sesrch for a specific video
 search() {
-  var resultsArr = [];
-  var q = $('#query').val();
-  var request = this.gapi.client.youtube.search.list({
-    q: q,
-    maxResults: 6,
-    part: 'snippet'
-  });
-
-  return new Promise(function (resolve, reject) {
-    request.execute(function (response) {
-      var results = response.result
-      for (var i = 0; i < results.items.length; i++) {
-        resultsArr.push(results.items[i].id.videoId)
-      }
-      return resolve(resultsArr)
-    });
-  })
+var resultsArr = [];    
+  if ($('#search-container').children().length > 0){
+    this.clearSearchContainer().then(function(){
+      var q = $('#query').val();
+      var request = gapi.client.youtube.search.list({
+        q: q,
+        maxResults: 6,
+        part: 'snippet'
+      });
+      return new Promise(function (resolve, reject) {
+        request.execute(function (response) {
+          var results = response.result
+          for (var i = 0; i < results.items.length; i++) {
+            resultsArr.push(results.items[i].id.videoId)
+          }
+          return resolve(resultsArr)
+        });   
+      })
+    })
+  }
+  
 }
+private clearSearchContainer(){
+  return new Promise(function(resolve, reject){
+    $('#search-container').empty();
+    return resolve()
+  })
+  
+}
+
 
 showId() {
   console.log('test')
@@ -77,10 +92,9 @@ showId() {
 // succeeds with no user intervention. Otherwise, it fails and the
 // user interface that prompts for authorization needs to display.
 private checkAuth() {
-	debugger
-  this.gapi.auth.authorize({
-    client_id: this.OAUTH2_CLIENT_ID,
-    scope: this.OAUTH2_SCOPES,
+  gapi.auth.authorize({
+    client_id: OAUTH2_CLIENT_ID,
+    scope: OAUTH2_SCOPES,
     immediate: true
   }, this.handleAuthResult.bind(this));
 }
@@ -96,10 +110,11 @@ private handleAuthResult(authResult) {
   } else {
     // Make the #login-link clickable. Attempt a non-immediate OAuth 2.0
     // client flow. The current function is called when that flow completes.
+    
 	$('#login-link').click(() => {
-		this.gapi.auth.authorize({
-			client_id: this.OAUTH2_CLIENT_ID,
-			scope: this.OAUTH2_SCOPES,
+	    gapi.auth.authorize({
+			client_id: OAUTH2_CLIENT_ID,
+			scope: OAUTH2_SCOPES,
 			immediate: false
 		}, this.handleAuthResult.bind(this));
 	});
@@ -110,10 +125,12 @@ private handleAuthResult(authResult) {
 // are required to use the Google APIs JS client. More info is available at
 // https://developers.google.com/api-client-library/javascript/dev/dev_jscript#loading-the-client-library-and-the-api
 private loadAPIClientInterfaces() {
-  this.gapi.client.load('youtube', 'v3', () => {
-    this.handleAPILoaded.bind(this);
-  });
+  return new Promise(function(resolve, reject){
+    gapi.client.load('youtube', 'v3', () => {})
+    return resolve()
+  }).then(this.handleAPILoaded)
 }
+
 }
 
 
