@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Component, OnInit, ElementRef } from '@angular/core';
+// import { Component, OnInit, ElementRef } from '@angular/core';
+// import {router} from '../../../routes/authentication';
+
 
 declare var gapi: any;
 
@@ -41,7 +43,7 @@ var resultsArr = [];
 	maxResults: 6,
 	part: 'snippet'
 	});
-	return new Promise(function (resolve, reject) {
+	return new Promise((resolve, reject) => {
 	request.execute(function (response) {
 		var results = response.result
 		for (var i = 0; i < results.items.length; i++) {
@@ -53,20 +55,20 @@ var resultsArr = [];
 }
 
 
-showId() {
-  console.log('test')
-//   return new Promise(function(resolve, reject){
+saveVid(userId) {
+  return new Promise((resolve, reject) => {
   $('.addToPlaylist').click(function (event) {
-    var selectedVid = $(event.target).prev('iframe').attr('src')
-    // $.post({
-    //   url: 'http://localhost:8080/video/',
-    //   method: "POST",
-    //   data: video,
-    //   // contentType: "application/json"
-    // })
-    return selectedVid
+      var selectedVid = $(event.target).prev('iframe').attr('src')
+      console.log(userId)
+      $.post({
+        url: 'http://localhost:8080/video',
+        method: "POST",
+        data: selectedVid,
+        // contentType: "application/json"
+      })
+    return resolve(selectedVid)
     
-//   })
+  })
   
 })
 }

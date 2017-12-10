@@ -37,12 +37,12 @@ export class SearchComponent implements OnInit {
 				this.searchService.googleApiClientReady()
 			}
 		}, 100);
-		this.authService.getProfile().subscribe(profile => {
-			this.username = profile.user.username;
-			this.id = profile.user._id
-			console.log(this.id)			
-			return this.id
-		  })
+		// this.authService.getProfile().subscribe(profile => {
+		// 	this.username = profile.user.username;
+		// 	this.id = profile.user._id
+		// 	console.log(this.id)			
+		// 	return this.id
+		//   })
 		}
 		find(){
 			this.urls = [];
@@ -56,12 +56,20 @@ export class SearchComponent implements OnInit {
 				return this.urls;
 			})
 		}
-		idShow(){
-			this.searchService.showId()
+		saveVideoToDb(){
+			this.authService.getProfile().subscribe(profile => {
+			this.username = profile.user.username;
+			this.id = profile.user._id
+			// console.log(this.id)	
+			this.searchService.saveVid(this.id).then(function(result){
+				var selectedVid = result;	
+				console.log(selectedVid)
+			})	
+			return [this.selectedVid, this.id];	
+		  })
+			
 
-				// var videoSrc = result;	
-				console.log(this.searchService.selectedVid)
-				return this.searchService.selectedVid;
+				
 		}
 	}
 	

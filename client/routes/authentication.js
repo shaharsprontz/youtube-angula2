@@ -170,8 +170,8 @@ module.exports = (router) => {
     })
   })
 
-  router.put('/video', (req, res) => {
-    User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: 'shahar'}},function(err, user) {
+  router.post('/video', (req, res) => {
+    User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: 'https://www.youtube.com/embed/2Vv-BfVoq4g'}},function(err, user) {
       if (err) {
         res.json({ success: false, message: err});
       } else {

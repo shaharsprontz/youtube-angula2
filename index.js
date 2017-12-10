@@ -32,6 +32,19 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
+app.use('/video', function(res,req){
+    userModel.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: 'https://www.youtube.com/embed/2Vv-BfVoq4g'}},function(err, user){
+        if (err) {
+            res.json({ success: false, message: err});
+          } else {
+            if (!user) {
+              res.json({ success: false, message: 'User not found'});
+            } else {
+              res.json({ success: true, user: user });
+            }
+          }
+        })
+      })
 // app.get('/video', function(res,req){
     // User.findOne({ _id: req.decoded.userId }).select('username email videoArray').exec((err, user) => {
     //     if (err) {
