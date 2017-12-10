@@ -9,9 +9,7 @@ const	OAUTH2_SCOPES = 'https://www.googleapis.com/auth/youtube';
 @Injectable()
 export class SearchService {
 
-  messageClass;
-  message;
-	
+  selectedVid;
 
   constructor() { }
 
@@ -37,53 +35,40 @@ private handleAPILoaded() {
 // Sesrch for a specific video
 search() {
 var resultsArr = [];    
-  if ($('#search-container').children().length > 0){
-    this.clearSearchContainer().then(function(){
-      var q = $('#query').val();
-      var request = gapi.client.youtube.search.list({
-        q: q,
-        maxResults: 6,
-        part: 'snippet'
-      });
-      return new Promise(function (resolve, reject) {
-        request.execute(function (response) {
-          var results = response.result
-          for (var i = 0; i < results.items.length; i++) {
-            resultsArr.push(results.items[i].id.videoId)
-          }
-          return resolve(resultsArr)
-        });   
-      })
-    })
-  }
-  
-}
-private clearSearchContainer(){
-  return new Promise(function(resolve, reject){
-    $('#search-container').empty();
-    return resolve()
-  })
-  
+	var q = $('#query').val();
+	var request = gapi.client.youtube.search.list({
+	q: q,
+	maxResults: 6,
+	part: 'snippet'
+	});
+	return new Promise(function (resolve, reject) {
+	request.execute(function (response) {
+		var results = response.result
+		for (var i = 0; i < results.items.length; i++) {
+		resultsArr.push(results.items[i].id.videoId)
+		}
+		return resolve(resultsArr)
+	});   
+	})
 }
 
 
 showId() {
   console.log('test')
 //   return new Promise(function(resolve, reject){
-//   $('.addToPlaylist').click(function (event) {
-    // selectedVid = $(event.target).prev('iframe')
-    // let video = selectedVid[0].src
+  $('.addToPlaylist').click(function (event) {
+    var selectedVid = $(event.target).prev('iframe').attr('src')
     // $.post({
     //   url: 'http://localhost:8080/video/',
     //   method: "POST",
     //   data: video,
     //   // contentType: "application/json"
     // })
-    // return resolve(video)
+    return selectedVid
     
 //   })
   
-// })
+})
 }
 
 // Attempt the immediate OAuth 2.0 client flow as soon as the page loads.

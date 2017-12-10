@@ -47,12 +47,14 @@ input {
 #search-container {
 	margin-top: 10px;
 	text-align: center;
-	display: block;
-	text-align: -webkit-center
+	display: inline-flex;
+	text-align: -webkit-center;
+}
+#iframeContainer {
+	width: 700px;
 }
 
 iframe {
-	margin: 5px;
 }
 
 .addToPlaylist {
@@ -78,3 +80,7 @@ iframe {
 	background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
 	text-decoration: none;
   }
+a {
+	display: -webkit-box;
+    width: 120px;
+}

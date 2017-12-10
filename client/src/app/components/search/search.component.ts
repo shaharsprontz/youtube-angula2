@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit {
 	videos;
 	url;
 	urls = [];
+	selectedVid
 	// videoSrc;
 	
 	private _apiInterval: any;
@@ -39,11 +40,12 @@ export class SearchComponent implements OnInit {
 		this.authService.getProfile().subscribe(profile => {
 			this.username = profile.user.username;
 			this.id = profile.user._id
-			// return this.id
-			console.log(this.id)
+			console.log(this.id)			
+			return this.id
 		  })
 		}
 		find(){
+			this.urls = [];
 			this.searchService.search().then((result) =>{
 				this.videos = result;
 				for (var i=0; i<this.videos.length; i++){
@@ -54,17 +56,17 @@ export class SearchComponent implements OnInit {
 				return this.urls;
 			})
 		}
+		idShow(){
+			this.searchService.showId()
+
+				// var videoSrc = result;	
+				console.log(this.searchService.selectedVid)
+				return this.searchService.selectedVid;
+		}
 	}
 	
 
-	// idShow(){
-	// 	showId().then((result) => {
-	// 		var videoSrc = result;
-	// 			console.log(videoSrc)
-	// 			return videoSrc;
-	// 		});
-		
-	// }
+	
 
 	
 
