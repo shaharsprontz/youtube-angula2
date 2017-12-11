@@ -1,6 +1,7 @@
 const User = require('../models/user'); // Import User Model Schema
 const jwt = require('jsonwebtoken');
 const config = require('../../config/database.js');
+// let videoToSave = require('../../client/src/app/services/search.service'); // Import selected video 
 
 module.exports = (router) => {
   /* ==============
@@ -156,32 +157,37 @@ module.exports = (router) => {
       }
     })
   })
-  router.get('/video', (req, res) => {
-    User.findOne({ _id: req.decoded.userId }).select('videoArray').exec((err, user) => {
-      if (err) {
-        res.json({ success: false, message: err});
-      } else {
-        if (!user) {
-          res.json({ success: false, message: 'User not found'});
+  router.get('/search', (req, res) => {
+    // if(res.body){
+      User.findOne({ _id: req.decoded.userId }).select('username videoArray token').exec((err, user) => {
+        if (err) {
+          res.json({ success: false, message: err});
         } else {
-          res.json({ success: true, user: user });
+          if (!user) {
+            res.json({ success: false, message: 'User not found'});
+          } else {
+            res.json({ success: true, user: user });
+            // return _id;
+          }
         }
-      }
-    })
+      })
+    // }
   })
 
-  router.post('/video', (req, res) => {
-    User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: 'https://www.youtube.com/embed/2Vv-BfVoq4g'}},function(err, user) {
-      if (err) {
-        res.json({ success: false, message: err});
-      } else {
-        if (!user) {
-          res.json({ success: false, message: 'User not found'});
+  router.put('/search', (req, res) => {
+    // if(res.body){
+      User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: selectedVid}},function(err, user) {
+        if (err) {
+          res.json({ success: false, message: err});
         } else {
-          res.json({ success: true, user: user });
+          if (!user) {
+            res.json({ success: false, message: 'User not found'});
+          } else {
+            res.json({ success: true, user: user });
+          }
         }
-      }
-    })
+      })
+    // }
   })
   return router; // Return router object to main index.js
 }

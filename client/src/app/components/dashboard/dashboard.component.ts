@@ -26,7 +26,7 @@ video;
       this.email = profile.user.email;
       this.videoArray = profile.user.videoArray
       // this.video = this.sanitizer.bypassSecurityTrustUrl(this.videoArray)
-      console.log(this.videoArray)
+      // console.log(this.videoArray)
     })
   }
 

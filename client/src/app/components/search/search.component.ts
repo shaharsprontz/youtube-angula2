@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
+import { Http, Response } from '@angular/http';
 
 declare var search: any;
 declare var showId: any;
@@ -13,7 +14,9 @@ declare var gapi: any;
 @Component({
 	selector: 'app-search',
 	templateUrl: './search.component.html',
-	styleUrls: ['./search.component.css']
+	styleUrls: ['./search.component.css'],
+	providers: [SearchService]
+	
 })
 
 export class SearchComponent implements OnInit {
@@ -24,11 +27,13 @@ export class SearchComponent implements OnInit {
 	url;
 	urls = [];
 	selectedVid
+	result;
+	http;
 	// videoSrc;
 	
 	private _apiInterval: any;
 	
-	constructor(private authService: AuthService, private searchService: SearchService, public sanitizer: DomSanitizer) {}
+	constructor(private authService: AuthService, private searchService: SearchService, public sanitizer: DomSanitizer, http: Http) {}
 
 	ngOnInit() {
 		this._apiInterval = setInterval(() => {
@@ -57,15 +62,25 @@ export class SearchComponent implements OnInit {
 			})
 		}
 		saveVideoToDb(){
-			this.authService.getProfile().subscribe(profile => {
-			this.username = profile.user.username;
-			this.id = profile.user._id
 			// console.log(this.id)	
-			this.searchService.saveVid(this.id).then(function(result){
-				var selectedVid = result;	
-				console.log(selectedVid)
-			})	
-			return [this.selectedVid, this.id];	
+			this.authService.getProfile().subscribe(profile => {
+			let user = {
+				id: profile.user._id
+			}
+			this.searchService.saveVid(user).then(function(result){
+			console.log(result);
+			})
+			// this.authService.saveVidToDb(user).subscribe(data => {
+			// 	console.log(data)
+			// })
+				
+			
+			// this.authService.saveVidToDb()
+			// .then(function(result){
+			// 	var selectedVid = result;	
+			// 	console.log(selectedVid)
+			// })	
+			// return [this.selectedVid, this.id];	
 		  })
 			
 

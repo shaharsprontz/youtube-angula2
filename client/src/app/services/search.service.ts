@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import { HttpModule, Http, Response } from '@angular/http';
+// import { AuthServise } from '../services/auth.service';
 // import { Component, OnInit, ElementRef } from '@angular/core';
 // import {router} from '../../../routes/authentication';
+// export var selectedVideo = this.selectedVid;
 
 
 declare var gapi: any;
@@ -10,17 +13,10 @@ const	OAUTH2_SCOPES = 'https://www.googleapis.com/auth/youtube';
 
 @Injectable()
 export class SearchService {
-
-  selectedVid;
-
-  constructor() { }
-
-  // The client ID is obtained from the {{ Google Cloud Console }}
-// at {{ https://cloud.google.com/console }}.
-// If you run this code from a server other than http://localhost,
-// you need to register your own client ID.
-
-
+http: Http;
+  constructor(public _http: Http) {
+	  this.http = _http;
+   }
 
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 public googleApiClientReady = () => {
@@ -54,22 +50,19 @@ var resultsArr = [];
 	})
 }
 
-
 saveVid(userId) {
   return new Promise((resolve, reject) => {
   $('.addToPlaylist').click(function (event) {
-      var selectedVid = $(event.target).prev('iframe').attr('src')
-      console.log(userId)
-      $.post({
-        url: 'http://localhost:8080/video',
-        method: "POST",
-        data: selectedVid,
-        // contentType: "application/json"
-      })
-    return resolve(selectedVid)
-    
-  })
-  
+	  var selectedVid = $(event.target).prev('iframe').attr('src')
+	    $.post({
+        url: 'http://localhost:8080/authentication/search',
+		data: {'video': selectedVid, 'userId': userId}
+		// contentType: "application/json"
+	  })
+	//   console.log('test')
+	return resolve(selectedVid)  	
+	
+	  })
 })
 }
 
