@@ -3,7 +3,6 @@ const User = require('../models/user'); // Import User Model Schema
 const jwt = require('jsonwebtoken');
 const config = require('../../config/database.js');
 
-
 module.exports = (router) => {
   /* ==============
      Register Route
@@ -177,7 +176,6 @@ module.exports = (router) => {
 
   router.post('/search', (req, res) => {
     // if(res.body){
-      debugger
       User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: req.body }},function(err, user) {
         if (err) {
           res.json({ success: false, message: err});

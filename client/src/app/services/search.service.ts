@@ -10,8 +10,7 @@ const	OAUTH2_SCOPES = 'https://www.googleapis.com/auth/youtube';
 
 @Injectable()
 export class SearchService {
-http: Http;
-  constructor(public _http: Http, private authService: AuthService) {}
+  constructor(public http: Http, private authService: AuthService) {}
 
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 public googleApiClientReady = () => {

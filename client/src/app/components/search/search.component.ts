@@ -6,10 +6,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { Http, Response } from '@angular/http';
 
+
 declare var search: any;
 declare var showId: any;
 declare var gapi: any;
-
 
 @Component({
 	selector: 'app-search',
@@ -26,10 +26,9 @@ export class SearchComponent implements OnInit {
 	videos;
 	url;
 	urls = [];
-	selectedVideo;
+	result;
 	token;
 	user;
-	// options;
 	headers;
 	
 	private _apiInterval: any;
@@ -59,18 +58,23 @@ export class SearchComponent implements OnInit {
 			return this.urls;
 		})
 	}
-	saveVideoToDb(){
-		this.searchService.saveVid().then(function(result){
-			this.selectedVideo = result;
-		})
-		this.http.post('http://localhost:8080/authentication/search', this.selectedVideo ,{
-			headers: this.headers,
-		})
+	getVideoSrc(){
+		this.searchService.saveVid().then((result => {
+			this.saveToDb(result)
+		}))
+	}
+	private saveToDb(result) {
+		debugger
+		this.http.post('http://localhost:8080/authentication/search',JSON.stringify({result}),{headers: this.headers})
 		.subscribe(data => {
-			console.log(data)
+			console.log(data, result)
 		})
-	}	
-}
+	}
+	
+}		
+			
+		
+
 			
 
 				
