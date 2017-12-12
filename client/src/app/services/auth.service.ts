@@ -46,9 +46,9 @@ export class AuthService {
     return this.http.post(this.domain + '/authentication/login', user).map(res => res.json());
   }
 
-  saveVidToDb(user){
-    return this.http.get(this.domain + '/authentication/search', user).map(res => res.json());
-  }
+  // saveVidToDb(user){
+  //   return this.http.get(this.domain + '/authentication/search', user).map(res => res.json());
+  // }
 
   logout() {
     this.authToken = null;

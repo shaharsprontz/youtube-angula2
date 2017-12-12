@@ -26,14 +26,15 @@ export class SearchComponent implements OnInit {
 	videos;
 	url;
 	urls = [];
-	selectedVid
-	result;
-	http;
-	// videoSrc;
+	selectedVideo;
+	token;
+	user;
+	// options;
+	headers;
 	
 	private _apiInterval: any;
 	
-	constructor(private authService: AuthService, private searchService: SearchService, public sanitizer: DomSanitizer, http: Http) {}
+	constructor(private authService: AuthService, private searchService: SearchService, public sanitizer: DomSanitizer,private http: Http) {}
 
 	ngOnInit() {
 		this._apiInterval = setInterval(() => {
@@ -42,69 +43,36 @@ export class SearchComponent implements OnInit {
 				this.searchService.googleApiClientReady()
 			}
 		}, 100);
-		// this.authService.getProfile().subscribe(profile => {
-		// 	this.username = profile.user.username;
-		// 	this.id = profile.user._id
-		// 	console.log(this.id)			
-		// 	return this.id
-		//   })
-		}
-		find(){
-			this.urls = [];
-			this.searchService.search().then((result) =>{
-				this.videos = result;
-				for (var i=0; i<this.videos.length; i++){
-					this.url = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.videos[i])
-					this.urls.push(this.url)
-				}
-				console.log(this.urls)
-				return this.urls;
-			})
-		}
-		saveVideoToDb(){
-			// console.log(this.id)	
-			this.authService.getProfile().subscribe(profile => {
-			let user = {
-				id: profile.user._id
-			}
-			this.searchService.saveVid(user).then(function(result){
-			console.log(result);
-			})
-			// this.authService.saveVidToDb(user).subscribe(data => {
-			// 	console.log(data)
-			// })
-				
-			
-			// this.authService.saveVidToDb()
-			// .then(function(result){
-			// 	var selectedVid = result;	
-			// 	console.log(selectedVid)
-			// })	
-			// return [this.selectedVid, this.id];	
-		  })
-			
-
-				
-		}
+		this.user = this.authService.user;
+		this.headers = this.authService.options.headers;
+		this.token = this.authService.options.headers._headers.get("authorization")
 	}
-	
-
-	
-
-	
-
+	find(){
+		this.urls = [];
+		this.searchService.search().then((result) =>{
+			this.videos = result;
+			for (var i=0; i<this.videos.length; i++){
+				this.url = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.videos[i])
+				this.urls.push(this.url)
+			}
+			console.log(this.urls)
+			return this.urls;
+		})
+	}
+	saveVideoToDb(){
+		this.searchService.saveVid().then(function(result){
+			this.selectedVideo = result;
+		})
+		this.http.post('http://localhost:8080/authentication/search', this.selectedVideo ,{
+			headers: this.headers,
+		})
+		.subscribe(data => {
+			console.log(data)
+		})
+	}	
+}
 			
-// 			jQuery('.addToPlaylist').click(function(event){
-// 				selectedVid = $(event.target).prev('iframe')
-// 				let video = selectedVid[0].src
-// 				// console.log(selectedVid[0].src);
-// 				console.log()
-// 				jQuery.post({
-// 					url: 'http://localhost:8080/video/',
-// 					method: "POST",
-// 					data: video,
-// 					// contentType: "application/json"
-// 				})				
-// 			})
-// 		});
 
+				
+		
+	

@@ -1,7 +1,8 @@
+
 const User = require('../models/user'); // Import User Model Schema
 const jwt = require('jsonwebtoken');
 const config = require('../../config/database.js');
-// let videoToSave = require('../../client/src/app/services/search.service'); // Import selected video 
+
 
 module.exports = (router) => {
   /* ==============
@@ -174,9 +175,10 @@ module.exports = (router) => {
     // }
   })
 
-  router.put('/search', (req, res) => {
+  router.post('/search', (req, res) => {
     // if(res.body){
-      User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: selectedVid}},function(err, user) {
+      debugger
+      User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: req.body }},function(err, user) {
         if (err) {
           res.json({ success: false, message: err});
         } else {

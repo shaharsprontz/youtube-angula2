@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpModule, Http, Response } from '@angular/http';
-// import { AuthServise } from '../services/auth.service';
-// import { Component, OnInit, ElementRef } from '@angular/core';
-// import {router} from '../../../routes/authentication';
-// export var selectedVideo = this.selectedVid;
-
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 declare var gapi: any;
 
@@ -14,9 +11,7 @@ const	OAUTH2_SCOPES = 'https://www.googleapis.com/auth/youtube';
 @Injectable()
 export class SearchService {
 http: Http;
-  constructor(public _http: Http) {
-	  this.http = _http;
-   }
+  constructor(public _http: Http, private authService: AuthService) {}
 
 // Upon loading, the Google APIs JS client automatically invokes this callback.
 public googleApiClientReady = () => {
@@ -50,20 +45,13 @@ var resultsArr = [];
 	})
 }
 
-saveVid(userId) {
+saveVid() {
   return new Promise((resolve, reject) => {
   $('.addToPlaylist').click(function (event) {
 	  var selectedVid = $(event.target).prev('iframe').attr('src')
-	    $.post({
-        url: 'http://localhost:8080/authentication/search',
-		data: {'video': selectedVid, 'userId': userId}
-		// contentType: "application/json"
+	  return resolve(selectedVid)  	
 	  })
-	//   console.log('test')
-	return resolve(selectedVid)  	
-	
-	  })
-})
+	})
 }
 
 // Attempt the immediate OAuth 2.0 client flow as soon as the page loads.
