@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
+import 'rxjs/Rx';
+
 
 
 declare var search: any;
@@ -29,7 +31,6 @@ export class SearchComponent implements OnInit {
 	result;
 	token;
 	user;
-	headers;
 	
 	private _apiInterval: any;
 	
@@ -43,8 +44,7 @@ export class SearchComponent implements OnInit {
 			}
 		}, 100);
 		this.user = this.authService.user;
-		this.headers = this.authService.options.headers;
-		this.token = this.authService.options.headers._headers.get("authorization")
+		this.token = this.authService.options.headers.get("authorization");
 	}
 	find(){
 		this.urls = [];
@@ -64,10 +64,15 @@ export class SearchComponent implements OnInit {
 		}))
 	}
 	private saveToDb(result) {
-		debugger
-		this.http.post('http://localhost:8080/authentication/search',JSON.stringify({result}),{headers: this.headers})
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
+		headers.append('authorization', this.token)
+		
+		this.http.post('http://localhost:8080/authentication/search', result, {headers: headers})
 		.subscribe(data => {
-			console.log(data, result)
+			console.log('ok');
+		}, error => {
+			console.log(JSON.stringify(error.json()));
 		})
 	}
 	

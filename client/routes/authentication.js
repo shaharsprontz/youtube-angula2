@@ -159,7 +159,7 @@ module.exports = (router) => {
   })
   router.get('/search', (req, res) => {
     // if(res.body){
-      User.findOne({ _id: req.decoded.userId }).select('username videoArray token').exec((err, user) => {
+      User.findOne({ _id: req.decoded.userId }).select('videoArray').exec((err, user) => {
         if (err) {
           res.json({ success: false, message: err});
         } else {
@@ -176,7 +176,7 @@ module.exports = (router) => {
 
   router.post('/search', (req, res) => {
     // if(res.body){
-      User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: req.body }},function(err, user) {
+      User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: req.body}},function(err, user) {
         if (err) {
           res.json({ success: false, message: err});
         } else {
