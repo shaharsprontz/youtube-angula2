@@ -5,9 +5,6 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { DomSanitizer } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { Http, Response, Headers } from '@angular/http';
-import 'rxjs/Rx';
-
-
 
 declare var search: any;
 declare var showId: any;
@@ -55,20 +52,21 @@ export class SearchComponent implements OnInit {
 				this.urls.push(this.url)
 			}
 			console.log(this.urls)
-			return this.urls;
+			// return this.urls;
 		})
 	}
 	getVideoSrc(){
 		this.searchService.saveVid().then((result => {
-			this.saveToDb(result)
+			var preProcessed = result.toString().split('.').join('*')
+			this.saveToDb(preProcessed)
 		}))
 	}
-	private saveToDb(result) {
+	private saveToDb(preProcessed) {
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/x-www-form-urlencoded');
 		headers.append('authorization', this.token)
 		
-		this.http.post('http://localhost:8080/authentication/search', result, {headers: headers})
+		this.http.post('http://localhost:8080/authentication/search', preProcessed, {headers: headers})
 		.subscribe(data => {
 			console.log('ok');
 		}, error => {

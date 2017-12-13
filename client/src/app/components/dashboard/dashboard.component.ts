@@ -15,19 +15,26 @@ username;
 email;
 videoArray;
 video;
+videosToDisplay = [];
 
   constructor(
     private authService: AuthService, public sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
+    var re = /[*]/g
     this.authService.getProfile().subscribe(profile => {
       this.username = profile.user.username;
-      this.email = profile.user.email;
-      this.videoArray = profile.user.videoArray
-      // this.video = this.sanitizer.bypassSecurityTrustUrl(this.videoArray)
-      // console.log(this.videoArray)
-    })
+      this.videoArray = profile.user.videoArray;
+      for (var i=0; i<this.videoArray.length;i++){
+        var proccessedVidSrc = Object.keys(this.videoArray[i])
+        for (var j=0;j<proccessedVidSrc.length;j++){
+          var pross = proccessedVidSrc[j]
+          var newString = pross.replace(re, '.')
+          this.videosToDisplay.push(newString);          
+        }
+      }
+    })    
   }
 
   
