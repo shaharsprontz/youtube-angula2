@@ -176,12 +176,30 @@ module.exports = (router) => {
 
   router.post('/search', (req, res) => {
     // if(res.body){
-      User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: req.body}},function(err, user) {
+      var videoSrc = Object.keys(req.body)
+      User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: videoSrc[0]}},function(err, user) {
         if (err) {
           res.json({ success: false, message: err});
         } else {
           if (!user) {
             res.json({ success: false, message: 'User not found'});
+          } else {
+            res.json({ success: true, user: user });
+          }
+        }
+      })
+    // }
+  })
+
+  router.post('/dashboard', (req, res) => {
+    // if(res.body){
+      var removeVideo = Object.keys(req.body);
+      User.findByIdAndUpdate({ _id: req.decoded.userId }, {$pull: {videoArray: removeVideo[0]}},function(err, user) {
+        if (err) {
+          res.json({ success: false, message: err});
+        } else {
+          if (!user) {
+            res.json({ success: false, message: 'video not found'});
           } else {
             res.json({ success: true, user: user });
           }

@@ -1,3 +1,10 @@
-
-<h1 class="page-header">{{ username }}'s Personal Playlist</h1>
-<div id="" *ngFor='let video of videosToDisplay'>{{video}}</div>
+<h1 class="page-header">
+  {{ username }}'s Personal Playlist</h1>
+<div id="dashboard-container">
+  <div id="iframeContainer" *ngFor='let video of videosToDisplay'>
+    <iframe width="390" height="200" margin="5px" border="4px solid green" [src]="video" frameborder="5" allowfullscreen>
+    </iframe>
+    <button type="button" class="btn btn-danger remove-from-dashboard" (click)="deleteFromPlaylist()">Remove from Playlist</button>
+    <!-- <a class="addToPlaylist" (click)="getVideoSrc()">Add to Playlist</a> -->
+  </div>
+</div>

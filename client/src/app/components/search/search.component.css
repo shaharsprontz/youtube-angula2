@@ -46,16 +46,15 @@ input {
 
 #search-container {
 	margin-top: 10px;
-	text-align: center;
-	display: inline-flex;
-	text-align: -webkit-center;
+	display: block;
+	width: 100%;
 }
 #iframeContainer {
 	width: 700px;
 }
 
-iframe {
-}
+/* iframe {
+} */
 
 .addToPlaylist {
 	background: #34495e;

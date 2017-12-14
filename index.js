@@ -32,10 +32,6 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
-// app.use('/search', (function(res, req){
-//     userModel.findOneAndUpdate({ _id: res.body['userId[id]'] },{$push: {videoArray: res.body['video']}})
-
-// }))
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/dist/index.html'));
