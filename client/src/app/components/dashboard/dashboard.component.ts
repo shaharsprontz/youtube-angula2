@@ -21,11 +21,16 @@ video;
 videosToDisplay = [];
 user;
 token;
+_ref:any;   
 
   constructor(
     private authService: AuthService, public sanitizer: DomSanitizer, private dashboardService: DashboardService, private http: Http) { }
 
   ngOnInit() {
+       this.showPlaylist()
+  }
+
+  showPlaylist(){
     var re = /[*]/g
     this.authService.getProfile().subscribe(profile => {
       this.user = this.authService.user;
@@ -33,17 +38,14 @@ token;
       this.username = profile.user.username;
       this.videoArray = profile.user.videoArray;
       for (var i=0; i<this.videoArray.length;i++){
-        // var proccessedVidSrc = Object.keys(this.videoArray[i])
-        // for (var j=0;j<proccessedVidSrc.length;j++){
           var pross = this.videoArray[i]
           var prossString = pross.toString(pross)
           var newString = prossString.replace(re, '.')
           var safeVideoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(newString)
           this.videosToDisplay.push(safeVideoUrl);          
         }
-      // }
-    })    
-  }
+    }) 
+}
 
   deleteFromPlaylist(){
     var re = /[.]/g
@@ -62,7 +64,8 @@ token;
 		
 		this.http.post('http://localhost:8080/authentication/dashboard', videoSrc, {headers: headers})
 		.subscribe(data => {
-			console.log('ok');
+      console.log('ok');
+      // this.showPlaylist();
 		}, error => {
 			console.log(JSON.stringify(error.json()));
 		})

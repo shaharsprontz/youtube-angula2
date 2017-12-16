@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SearchService } from '../../services/search.service';
 import { Http, Response, Headers } from '@angular/http';

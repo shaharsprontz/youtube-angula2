@@ -10,12 +10,15 @@ export class DashboardService {
 
   removeFromDb(){
 	return new Promise((resolve, reject) => {
-		$('.remove-from-dashboard').click(function (event) {
+		$(document).on('click', '.remove-from-dashboard' ,function (event) {
 			var removeSelectedVid = $(event.target).prev('iframe').attr('src')
-			// console.log(selectedVid)
+			console.log(removeSelectedVid)
+			$(document).on('click', '.remove-from-dashboard', function(){
+				$(this).closest('div').fadeOut('slow');
+			})
 			return resolve(removeSelectedVid)  	
 			})
-		  })
+		})
   }
 
 }

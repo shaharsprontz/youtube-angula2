@@ -46,8 +46,9 @@ var resultsArr = [];
 
 saveVid() {
   return new Promise((resolve, reject) => {
-  $('.addToPlaylist').click(function (event) {
-	  var selectedVid = $(event.target).prev('iframe').attr('src')
+  $(document).on('click', '.addToPlaylist', function (event) {
+		var selectedVid = $(event.target).prev('iframe').attr('src');
+		$(this).click(false);
 	  return resolve(selectedVid)  	
 	  })
 	})

@@ -50,13 +50,17 @@ input {
 	width: 100%;
 }
 #iframeContainer {
-	width: 700px;
+	margin: 0 auto;
+	text-align: -webkit-center;
+	width: 33%;
+	padding: 10px;
 }
 
-/* iframe {
-} */
+iframe {
+	width: 100%
+}
 
-.addToPlaylist {
+/* .addToPlaylist {
 	background: #34495e;
 	-webkit-border-radius: 3;
 	-moz-border-radius: 3;
@@ -78,7 +82,7 @@ input {
 	background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
 	background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
 	text-decoration: none;
-  }
+  } */
 a {
 	display: -webkit-box;
     width: 120px;
