@@ -1,15 +1,13 @@
-body, html {
-    height: 100%;
+.container {
+    width: 100%;
 }
-.bg { 
-    /* The image used */
-    background-image: url("http://feelgrafix.com/data_images/out/7/799589-fantastic-turntable-wallpaper.jpg");
 
-    /* Full height */
-    height: 100%; 
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+img {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+    z-index: -1;
 }
