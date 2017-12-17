@@ -3,6 +3,7 @@ import { HttpModule, Http, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
+
 declare var gapi: any;
 
 const OAUTH2_CLIENT_ID = '760102447470-m5qua4nr903r5qo31nelrrh45phgftql.apps.googleusercontent.com';

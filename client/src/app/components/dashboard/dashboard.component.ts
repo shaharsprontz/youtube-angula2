@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchComponent } from '../search/search.component';
 import { AuthService } from '../../services/auth.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, BrowserModule } from '@angular/platform-browser';
 import { DashboardService } from 'app/services/dashboard.service';
 import { Http, HttpModule, Headers } from '@angular/http';
 
@@ -20,11 +20,11 @@ videoArray;
 video;
 videosToDisplay = [];
 user;
-token;
-_ref:any;   
+token; 
 
   constructor(
-    private authService: AuthService, public sanitizer: DomSanitizer, private dashboardService: DashboardService, private http: Http) { }
+    private authService: AuthService, public sanitizer: DomSanitizer, private dashboardService: DashboardService, private http: Http) {}
+  
 
   ngOnInit() {
        this.showPlaylist()
