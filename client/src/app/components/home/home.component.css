@@ -1,5 +1,22 @@
-.container {
-    width: 100%;
+#background-div {
+	z-index: 1;
+    background: none;
+    font-size: large;
+    font-weight: bold;
+}
+
+/* .container {
+	width: 100%;
+	height: 100%;
+} */
+#background-div{
+	width: 100%;
+    height: 100%;
+    background-color: cadetblue;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
 }
 
 img {
