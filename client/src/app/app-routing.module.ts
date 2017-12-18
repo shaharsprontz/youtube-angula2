@@ -11,7 +11,8 @@ import { NotAuthGuard } from './guards/notAuth.guard';
 
 const appRoutes: Routes = [
     { path: 'home',
-      component: HomeComponent
+      component: HomeComponent,
+      canActivate: [AuthGuard]
     },
     {
       path: 'dashboard',

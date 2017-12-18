@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -9,13 +11,21 @@ import { AuthService } from '../../services/auth.service';
 export class HomeComponent implements OnInit {
 
 username;
+user;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
-      this.username = profile.user.username
+      if (!profile.success == false)
+        this.username = profile.user.username
+        else{
+          this.user = 'user' 
+        }
     })
   }
+  btnClick= function () {
+    this.router.navigateByUrl('/login');
+};
 
 }
