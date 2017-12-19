@@ -1,5 +1,10 @@
 <h2 class="page-header">
   Search for videos</h2>
+  <div class="row show-hide-message">
+      <div [ngClass]="messageClass">
+        {{ message }}
+      </div>
+    </div>
 <div id="searchComponent">
   <label id="search">
     <input class="form-control mr-sm-2" id="query" value="" type="text" placeholder="Search for videos" />

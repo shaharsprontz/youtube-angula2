@@ -28,6 +28,8 @@ export class SearchComponent implements OnInit {
 	result;
 	token;
 	user;
+	messageClass;
+	message;
 	
 	private _apiInterval: any;
 	
@@ -68,6 +70,8 @@ export class SearchComponent implements OnInit {
 		
 		this.http.post('http://localhost:8080/authentication/search', preProcessed, {headers: headers})
 		.subscribe(data => {
+			this.messageClass = 'alert alert-success';
+        	this.message = 'data';
 			console.log('ok');
 		}, error => {
 			console.log(JSON.stringify(error.json()));
