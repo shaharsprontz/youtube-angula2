@@ -24,8 +24,11 @@ user;
         }
     })
   }
-  btnClick= function () {
+  goToLogin= function () {
     this.router.navigateByUrl('/login');
+};
+  goToRegister= function () {
+    this.router.navigateByUrl('/register');
 };
 
 }

@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Francois+One');
 
-body, html {
-    font-family: 'Roboto';
-  }
-
 #background-div {
 	z-index: 1;
     background: none;
@@ -29,7 +25,7 @@ img {
     top: 0;
     position: absolute;
 	z-index: -1;
-	opacity: 0.8
+	opacity: 0.6
 }
 
 #headline{
@@ -38,5 +34,27 @@ img {
     z-index: 1;
     font-family: 'Francois One';
     text-align: center;
-    margin-top: 10%
+    margin-top: 10%;
+}
+
+p {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 2%;
+    opacity: 0.8
+}
+#login-button {
+    margin-right: 7%;
+    color: black;
+    width: 95px
+}
+
+#register-button {
+    width: 95px;
+}
+
+#buttons {
+    text-align: center;
+    margin-top: 5%;
+    font-family: 'Francois One';
 }

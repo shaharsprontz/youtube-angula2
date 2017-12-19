@@ -1,5 +1,9 @@
 <div id="container">
   <img src="./assets/images/turntable-background-1.jpg">
-  <div id="headline">Welcome {{ username || user }},<br> to your custom youtube playlist</div>
-  <button type="button" class="btn btn-primary-outline pull-right" (click)="btnClick();"><i class="fa fa-plus"></i> Go to Login</button>    
+  <div id="headline">PLAYTUBE</div>
+  <p>Login or Register<br>and start creating your personal Playlist</p>
+  <div id="buttons">
+  <button id="login-button" type="button" class="btn btn-success" (click)="goToLogin();">Login</button>
+  <button id="register-button" type="button" class="btn btn-primary" (click)="goToRegister();">Register</button>  
+</div>      
 </div>
