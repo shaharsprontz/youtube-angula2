@@ -182,9 +182,9 @@ module.exports = (router) => {
           res.json({ success: false, message: err});
         } else {
           if (!user) {
-            res.json({ success: false, message: 'User not found'});
+            res.json({ success: false, message: "Canno't save video"});
           } else {
-            res.json({ success: true, user: user });
+            res.json({ success: true, message: "Video saved" });
           }
         }
       })

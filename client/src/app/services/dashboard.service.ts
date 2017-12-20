@@ -13,10 +13,7 @@ export class DashboardService {
 	return new Promise((resolve, reject) => {
 		$(document).on('click', '.remove-from-dashboard' ,function (event) {
 			var removeSelectedVid = $(event.target).prev('iframe').attr('src')
-			console.log(removeSelectedVid)
-			$(document).on('click', '.remove-from-dashboard', function(){
 				$(this).closest('div').fadeOut('slow');
-			})
 			return resolve(removeSelectedVid)  	
 			})
 		})

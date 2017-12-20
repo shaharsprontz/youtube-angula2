@@ -49,7 +49,7 @@ saveVid() {
   return new Promise((resolve, reject) => {
   $(document).on('click', '.addToPlaylist', function (event) {
 		var selectedVid = $(event.target).prev('iframe').attr('src');
-		$(this).hide();
+		$(this).attr('disabled', 'disabled');
 	  return resolve(selectedVid)  	
 	  })
 	})
