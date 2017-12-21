@@ -54,7 +54,6 @@ export class SearchComponent implements OnInit {
 				this.urls.push(this.url)
 			}
 			console.log(this.urls)
-			// return this.urls;
 		})
 	}
 	getVideoSrc(){
@@ -70,12 +69,6 @@ export class SearchComponent implements OnInit {
 		
 		this.http.post('http://localhost:8080/authentication/search', preProcessed, {headers: headers})
 		.subscribe(data => {
-			$('#message').fadeIn(1000)
-			this.messageClass = 'alert alert-success';
-			this.message = 'Video saved';
-			setTimeout(function(){
-				$('#message').fadeOut(1500)
-			}, 2000)
 			console.log('ok');
 		}, error => {
 			console.log(JSON.stringify(error.json()));
