@@ -1,3 +1,4 @@
+
 const User = require('../models/user'); // Import User Model Schema
 const jwt = require('jsonwebtoken');
 const config = require('../../config/database.js');
@@ -156,32 +157,55 @@ module.exports = (router) => {
       }
     })
   })
-  router.post('/search', (req, res) => {
-    User.findOne({ _id: req.decoded.userId }).select('username email videoArray').exec((err, user) => {
-      if (err) {
-        res.json({ success: false, message: err});
-      } else {
-        if (!user) {
-          res.json({ success: false, message: 'User not found'});
+  router.get('/search', (req, res) => {
+    // if(res.body){
+      User.findOne({ _id: req.decoded.userId }).select('videoArray').exec((err, user) => {
+        if (err) {
+          res.json({ success: false, message: err});
         } else {
-          res.json({ success: true, user: user });
+          if (!user) {
+            res.json({ success: false, message: 'User not found'});
+          } else {
+            res.json({ success: true, user: user });
+            // return _id;
+          }
         }
-      }
-    })
+      })
+    // }
   })
 
-  router.get('/video', (req, res) => {
-    User.findOne({ _id: req.decoded.userId }).select('username email videoArray').exec((err, user) => {
-      if (err) {
-        res.json({ success: false, message: err});
-      } else {
-        if (!user) {
-          res.json({ success: false, message: 'User not found'});
+  router.post('/search', (req, res) => {
+    // if(res.body){
+      var videoSrc = Object.keys(req.body)
+      User.findOneAndUpdate({ _id: req.decoded.userId },{$push: {videoArray: videoSrc[0]}},function(err, user) {
+        if (err) {
+          res.json({ success: false, message: err});
         } else {
-          res.json({ success: true, user: user });
+          if (!user) {
+            res.json({ success: false, message: "Canno't save video"});
+          } else {
+            res.json({ success: true, message: "Video saved" });
+          }
         }
-      }
-    })
+      })
+    // }
+  })
+
+  router.post('/dashboard', (req, res) => {
+    // if(res.body){
+      var removeVideo = Object.keys(req.body);
+      User.findByIdAndUpdate({ _id: req.decoded.userId }, {$pull: {videoArray: removeVideo[0]}},function(err, user) {
+        if (err) {
+          res.json({ success: false, message: err});
+        } else {
+          if (!user) {
+            res.json({ success: false, message: 'video not found'});
+          } else {
+            res.json({ success: true, user: user });
+          }
+        }
+      })
+    // }
   })
   return router; // Return router object to main index.js
 }

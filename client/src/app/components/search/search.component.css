@@ -3,40 +3,7 @@ input {
 }
 
 #search-button {
-	position: relative;
-	vertical-align: top;
-	width: 50%;
-	height: 30px;
-	padding: 0;
-	margin-top: 15px;
-	font-size: 18px;
-	color: white;
-	text-align: center;
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-	background: #34495e;
-	border: 0;
-	border-radius: 3px;
-	/* border-bottom: 2px solid #263849; */
-	cursor: pointer;
-	-webkit-box-shadow: inset 0 -2px #263849;
-	box-shadow: inset 0 -2px #263849;
-  }
-  .wet-asphalt-flat-button:active {
-	top: 1px;
-	outline: none;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-  }
-  
-
-#search-button:hover {
-	background: #3cb0fd;
-	background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-	background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-	background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-	background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-	background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-	text-decoration: none;
+	margin-top: 5%;
 }
 
 #searchComponent {
@@ -46,35 +13,23 @@ input {
 
 #search-container {
 	margin-top: 10px;
-	text-align: center;
 	display: block;
-	text-align: -webkit-center
+	width: 100%;
+}
+#iframeContainer {
+	margin: 0 auto;
+	text-align: -webkit-center;
+	width: 33%;
+	padding: 10px;
 }
 
 iframe {
-	margin: 5px;
+	width: 100%
 }
 
-.addToPlaylist {
-	background: #34495e;
-	-webkit-border-radius: 3;
-	-moz-border-radius: 3;
-	border-radius: 3px;
-	font-family: Arial;
-	color: #ffffff;
-	font-size: 16px;
-	padding: 5px 5px 5px 5px;
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-	text-decoration: none;
-  }
-  
-  .addToPlaylist:hover {
-	cursor: pointer;	
-	background: #3cb0fd;
-	background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-	background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-	background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-	background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-	background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-	text-decoration: none;
-  }
+a {
+	display: -webkit-box;
+	width: 120px;
+	margin-top: 4%;
+	text-align: -webkit-center;
+}

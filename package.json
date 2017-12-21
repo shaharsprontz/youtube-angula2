@@ -25,5 +25,8 @@
     "jsonwebtoken": "^7.4.3",
     "mongoose": "^4.10.0",
     "mongoose-type-email": "^1.0.5"
+  },
+  "devDependencies": {
+    "typescript": "^2.5.2"
   }
 }

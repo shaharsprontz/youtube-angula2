@@ -3,16 +3,19 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SearchService } from '../../services/search.service';
+import { Http, Response, Headers } from '@angular/http';
 
 declare var search: any;
 declare var showId: any;
 declare var gapi: any;
 
-
 @Component({
 	selector: 'app-search',
 	templateUrl: './search.component.html',
-	styleUrls: ['./search.component.css']
+	styleUrls: ['./search.component.css'],
+	providers: [SearchService]
+	
 })
 
 export class SearchComponent implements OnInit {
@@ -22,60 +25,62 @@ export class SearchComponent implements OnInit {
 	videos;
 	url;
 	urls = [];
-	videoSrc;
-	
-	find(){
-		search().then((result) =>{
-			this.videos = result;
-			for (var i=0; i<this.videos.length; i++){
-				this.url = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.videos[i])
-				this.urls.push(this.url)
-			}
-			return this.urls;
-		})
-	}
-
-	idShow(){
-		showId().then(function(result){
-			console.log(result)
-			var videoSrc = result;
-			return videoSrc
-		})
-	};
+	result;
+	token;
+	user;
+	messageClass;
+	message;
 	
 	private _apiInterval: any;
 	
-	constructor(private authService: AuthService,public sanitizer: DomSanitizer) {}
+	constructor(private authService: AuthService, private searchService: SearchService, public sanitizer: DomSanitizer,private http: Http) {}
 
 	ngOnInit() {
 		this._apiInterval = setInterval(() => {
 			if (typeof gapi !== "undefined" && gapi.auth && gapi.auth.init) {
 				clearInterval(this._apiInterval);
-				// googleApiClientReady();
+				this.searchService.googleApiClientReady()
 			}
 		}, 100);
-		this.authService.getProfile().subscribe(profile => {
-			this.username = profile.user.username;
-			this.id = profile.user._id
-			// console.log(this.id)
-		  })
-		}
+		this.user = this.authService.user;
+		this.token = this.authService.options.headers.get("authorization");
+	}
+	find(){
+		this.urls = [];
+		this.searchService.search().then((result) =>{
+			this.videos = result;
+			for (var i=0; i<this.videos.length; i++){
+				this.url = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.videos[i])
+				this.urls.push(this.url)
+			}
+			console.log(this.urls)
+		})
+	}
+	getVideoSrc(){
+		this.searchService.saveVid().then((result => {
+			var preProcessed = result.toString().split('.').join('*')
+			this.saveToDb(preProcessed)
+		}))
+	}
+	private saveToDb(preProcessed) {
+		let headers = new Headers();
+		headers.append('Content-Type', 'application/x-www-form-urlencoded');
+		headers.append('authorization', this.token)
 		
+		this.http.post('http://localhost:8080/authentication/search', preProcessed, {headers: headers})
+		.subscribe(data => {
+			console.log('ok');
+		}, error => {
+			console.log(JSON.stringify(error.json()));
+		})
 	}
 	
+}		
+			
+		
 
 			
-// 			jQuery('.addToPlaylist').click(function(event){
-// 				selectedVid = $(event.target).prev('iframe')
-// 				let video = selectedVid[0].src
-// 				// console.log(selectedVid[0].src);
-// 				console.log()
-// 				jQuery.post({
-// 					url: 'http://localhost:8080/video/',
-// 					method: "POST",
-// 					data: video,
-// 					// contentType: "application/json"
-// 				})				
-// 			})
-// 		});
 
+				
+		
+	

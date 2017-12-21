@@ -32,26 +32,6 @@ app.use(bodyParser.json())
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
-app.use('/video', function(res,req){
-    var username = 'shahar'
-    userModel.findOne({ username }, function(err, person){
-        if (err) {
-            console.log(err)
-        }
-        console.log(person)
-    })
-})     
-    // app.use('/authentication', authentication)
-    // var videoUrl = req.body,
-    //     m = userModel;
-    //     app.get('/authentication/dashboard', function(req, res){
-    //         console.log(req.body._id)
-    //     })
-    // // once you have a user id
-    // userModel.findOneAndUpdate({ _id: userId }, { videoArray: { $addToSet: { videoUrl}}}, { new: true }, function(err, user) {
-    //     return res.status(200).json({ success: true });
-    // });
-    // console.log(req.body)
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/dist/index.html'));

@@ -1,6 +1,13 @@
-<h1 class="page-header">{{ username }}'s Personal Playlist</h1>
-<ul class="list-group">
-	<li class="list-group-item">Videos:<iframe width="550" height="280" margin="5px" border="4px solid green" src="https://www.youtube.com/embed/2Vv-BfVoq4g" frameborder="0" gesture="media"  allowfullscreen></iframe></li>
-	<li class="list-group-item">Username: {{ username }}</li>
-	<li class="list-group-item">Email: {{ email }}</li>
-</ul>
+<h1 class="page-header">
+  You're Personal Playlist</h1>
+<div class="col-lg-12" id="dashboard-container">
+  <div>
+    <div class="col-md-12"  id="iframeContainer" *ngFor='let video of videosToDisplay'>
+      <iframe width="390" height="200" margin="5px" border="4px solid green" [src]="video" frameborder="5" modestbranding=1 controls=0 allowfullscreen align="center" vq=480>
+      </iframe>
+      <a class="btn btn-danger remove-from-dashboard" (click)="deleteFromPlaylist()">Remove from Playlist</a>
+    </div>
+  </div>
+</div>
+
+
