@@ -38,8 +38,8 @@ export class SearchComponent implements OnInit {
 	ngOnInit() {
 		this._apiInterval = setInterval(() => {
 			if (typeof gapi !== "undefined" && gapi.auth && gapi.auth.init) {
-				clearInterval(this._apiInterval);
 				this.searchService.googleApiClientReady()
+				clearInterval(this._apiInterval);
 			}
 		}, 100);
 		this.user = this.authService.user;
